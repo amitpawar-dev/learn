@@ -9,6 +9,7 @@ import com.bookstore.service.IPublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -81,9 +82,7 @@ public class PublisherServiceImpl  implements IPublisherService <Publisher> {
         }
 
         pubEntity.setBookList(bookListEntity);
-        publisherRepository.save(pubEntity);
-        return pubEntity;
-
+        return publisherRepository.save(pubEntity);
     }
     @Override
     public Publisher update(Publisher o, int id) {

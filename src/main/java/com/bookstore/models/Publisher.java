@@ -1,10 +1,10 @@
 package com.bookstore.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -21,11 +21,14 @@ import static javax.persistence.CascadeType.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
+//@ToString
+/*@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "publisherid")*/
 public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int publisherid;
+    private Integer publisherid;
 
     @Column (name="name")
     @NotNull
@@ -34,9 +37,11 @@ public class Publisher {
     @Column(name="address")
     @NotNull
     private String address;
-    @JsonIgnore
+    @NonNull
+
+    @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "publisher",cascade = CascadeType.ALL)
-    private List <Book> bookList = new ArrayList<Book>();
+    private List <Book> bookList = new ArrayList <Book>();
 
     public void addBook(Book book) {
         this.bookList.add(book);

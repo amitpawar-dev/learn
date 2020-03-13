@@ -1,5 +1,8 @@
 package com.bookstore.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,10 +17,13 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @ToString
+/*@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")*/
 public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    private Integer id;
 
     @Column(name = "name")
     @NotNull
@@ -27,6 +33,7 @@ public class Book implements Serializable {
     @JoinColumn (name= "authorid",nullable = false)
     private Author author;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn (name= "publisherid",nullable = false)
     private Publisher publisher;

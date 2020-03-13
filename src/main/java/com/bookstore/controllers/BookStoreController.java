@@ -24,7 +24,6 @@ public class BookStoreController {
 
     @PostMapping("/createPublisher")
     public Publisher createPublisher (@RequestBody Publisher publisher) {
-        System.out.println("Publisher in Controller --->"+publisher);
        Publisher publisherResponse = publisherService.add(publisher);
         return publisherResponse;
     }

@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int authorid;
+    private Integer authorid;
 
     @NotNull
     private String name;
