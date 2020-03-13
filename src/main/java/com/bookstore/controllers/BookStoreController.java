@@ -6,10 +6,9 @@ import com.bookstore.repository.BookRepository;
 import com.bookstore.service.impl.BooksServiceImpl;
 import com.bookstore.service.impl.PublisherServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,6 +25,14 @@ public class BookStoreController {
     public Publisher createPublisher (@RequestBody Publisher publisher) {
        Publisher publisherResponse = publisherService.add(publisher);
         return publisherResponse;
+    }
+
+    @GetMapping ("/getPublishers")
+    public Page<Publisher> getAllPublishers (
+            @RequestParam(defaultValue = "0") Integer pageNo,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "publisherid") String sort){
+        return publisherService.getAll(pageNo,pageSize,sort);
     }
 
     @PostMapping ("/createBook")

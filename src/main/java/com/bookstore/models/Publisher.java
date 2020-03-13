@@ -1,9 +1,6 @@
 package com.bookstore.models;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -39,6 +36,8 @@ public class Publisher {
     private String address;
     @NonNull
 
+
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "publisher",cascade = CascadeType.ALL)
     private List <Book> bookList = new ArrayList <Book>();

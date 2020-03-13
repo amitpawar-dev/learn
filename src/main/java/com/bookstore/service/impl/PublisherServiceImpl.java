@@ -8,7 +8,9 @@ import com.bookstore.repository.PublisherRepository;
 import com.bookstore.service.IPublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -25,35 +27,10 @@ public class PublisherServiceImpl  implements IPublisherService <Publisher> {
     BookRepository  bookRepository;
 
     @Override
-    public Page<Publisher> getAll(Pageable pageable) {
-//        List <Publisher> publisherList = publisherRepository.findAll();
-        return null;
-    }
-
-    /* Working Code---------------
-    @Override
-    public Publisher add(Publisher publisher) {
-
-        Publisher publisher1 = new Publisher();
-        publisher1.setName("Macgraw Hill");
-        publisher1.setAddress("US");
-
-        Author author = new Author();
-        author.setName("Amit Pawar");
-        author.setAddress("Rahatani");
-
-        Book book = new Book();
-        book.setName("Applied Physics");
-        book.setAuthor(author);
-        book.setPublisher(publisher1);
-        List <Book> bookList = new ArrayList<>();
-        bookList.add(book);
-        publisher1.setBookList(bookList);
-        System.out.println("Book Name is ---->"+publisher1.getBookList().get(0).getName());
-        return publisherRepository.save(publisher1);
-    }
-
-     */
+    public Page<Publisher> getAll(Integer pageNo,Integer pageSize,String sortBy) {
+        Pageable paging = PageRequest.of(pageNo, pageSize);
+       return publisherRepository.findAll(paging);
+     }
 
     @Override
     public Publisher add(Publisher publisher) {
@@ -67,7 +44,6 @@ public class PublisherServiceImpl  implements IPublisherService <Publisher> {
 
         List <Book> reqBookList = publisher.getBookList();
         for (Book book:reqBookList) {
-            System.out.println("Inside for loop---->");
             Author reqAuthor = book.getAuthor();
             Book bookEntity = new Book();
             Author authorEntity = new Author();

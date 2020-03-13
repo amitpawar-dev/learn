@@ -16,7 +16,7 @@ public class BooksServiceImpl<Book>  implements IBooksService <com.bookstore.mod
     BookRepository bookRepository;
 
     @Override
-    public Page<com.bookstore.models.Book> getAll(Pageable pageable) {
+    public Page<com.bookstore.models.Book> getAll(Integer pageNo, Integer pageSize, String sortBy) {
         return null;
     }
 
